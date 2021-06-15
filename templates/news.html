@@ -1,0 +1,11 @@
+{% extends "layout.html" %} {% block title %} NEWS {% endblock %} {% block main %}
+<div class="news">
+    <h1 class="news_header">Covid And Vaccination News</h1>
+    <div class="news_data">
+        {% for covid_news in news_data_covid %}
+        <h3 class="news_title">{{covid_news.title}}</h3>
+        <p class="news_description">{{covid_news.description}}</p>
+        <a class="news_link" href={{covid_news.url}}>know more:</a> {% endfor %}
+    </div>
+</div>
+{% endblock %}
