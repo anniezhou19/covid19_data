@@ -60,7 +60,7 @@ main img {
     /* Position the search icon */
     background-repeat: no-repeat;
     /* Do not repeat the icon image */
-    width: 50%;
+    width: 30%;
     /* Full-width */
     font-size: 20px;
     /* Increase font-size */
@@ -68,11 +68,13 @@ main img {
     /* Add some space below the input */
 }
 
+p {
+    height: 80px;
+}
+
 #myTable {
     border-collapse: collapse;
     /* Collapse borders */
-    width: 100%;
-    /* Full-width */
     border: 1px solid #ddd;
     /* Add a grey border */
     font-size: 18px;
@@ -83,13 +85,9 @@ main img {
 #myTable td {
     text-align: left;
     /* Left-align text */
-    padding: 12px;
+    padding: 10px;
     /* Add padding */
-}
-
-#myTable tr {
-    /* Add a bottom border to all table rows */
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
 }
 
 
