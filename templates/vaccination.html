@@ -10,38 +10,38 @@
     <div>
         <iframe src="https://ourworldindata.org/explorers/coronavirus-data-explorer?zoomToSelection=true&time=2020-03-01..latest&pickerSort=desc&pickerMetric=total_vaccinations_per_hundred&Metric=Vaccine+doses&Interval=Cumulative&Relative+to+Population=true&Align+outbreaks=false&country=USA~GBR~ISR~DEU~ARE~ARG~FRA&hideControls=true" loading="lazy" style="width: 100%; height: 600px; border: 0px none;"></iframe>
     </div>
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th>Country</th>
-                    <th>Total Vaccination</th>
-                    <th>People Vaccinated</th>
-                    <th>People Fully Vaccinated</th>
-                    <th>Daily Vaccinations</th>
-                    <th>Total Vaccination per Hundred</th>
-                    <th>People Vaccinated per Hundred</th>
-                    <th>People Fully Vaccinated per Hundred</th>
-                    <th>Daily Vaccinations per Million</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for vaccin_info in vaccin_info %}
-                <tr>
-                    <td>{{vaccin_info["country"]}}</td>
-                    <td>{{vaccin_info["data"][-1]["total_vaccinations"]}}</td>
-                    <td>{{vaccin_info["data"][-1]["people_vaccinated"]}}</td>
-                    <td>{{vaccin_info["data"][-1]["people_fully_vaccinated"]}}</td>
-                    <td>{{vaccin_info["data"][-1]["daily_vaccinations"]}}</td>
-                    <td>{{vaccin_info["data"][-1]["total_vaccinations_per_hundred"]}}</td>
-                    <td>{{vaccin_info["data"][-1]["people_vaccinated_per_hundred"]}}</td>
-                    <td>{{vaccin_info["data"][-1]["people_fully_vaccinated_per_hundred"]}}</td>
-                    <td>{{vaccin_info["data"][-1]["daily_vaccinations_per_million"]}}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+    <p></p>
+     <div>
+        <input type="text" id="myInput" onkeyup="function()" placeholder="Search for Country">
     </div>
-
-
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Total Vaccination</th>
+                <th>People Vaccinated</th>
+                <th>People Fully Vaccinated</th>
+                <th>Daily Vaccinations</th>
+                <th>Total Vaccination per Hundred</th>
+                <th>People Vaccinated per Hundred</th>
+                <th>People Fully Vaccinated per Hundred</th>
+                <th>Daily Vaccinations per Million</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vaccin_info in vaccin_info %}
+            <tr>
+                <td>{{vaccin_info["country"]}}</td>
+                <td>{{vaccin_info["data"][-1]["total_vaccinations"]}}</td>
+                <td>{{vaccin_info["data"][-1]["people_vaccinated"]}}</td>
+                <td>{{vaccin_info["data"][-1]["people_fully_vaccinated"]}}</td>
+                <td>{{vaccin_info["data"][-1]["daily_vaccinations"]}}</td>
+                <td>{{vaccin_info["data"][-1]["total_vaccinations_per_hundred"]}}</td>
+                <td>{{vaccin_info["data"][-1]["people_vaccinated_per_hundred"]}}</td>
+                <td>{{vaccin_info["data"][-1]["people_fully_vaccinated_per_hundred"]}}</td>
+                <td>{{vaccin_info["data"][-1]["daily_vaccinations_per_million"]}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}

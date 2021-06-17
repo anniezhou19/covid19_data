@@ -5,50 +5,48 @@
 {% endblock %}
 
 {% block main %}
+    <h2>Coronavirus (COVID-19) Dashboard</h2>
     <h2>Situation by Country</h2>
     <p></p>
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for Country" title="Type in a country">
-    <p></p>
     <div>
-        <table id="myTable">
-            <thead>
-                <tr>
-                    <th>Country</th>
-                    <th>Total Cases</th>
-                    <th>Today Cases</th>
-                    <th>Total Deaths</td>
-                    <th>Today Deaths</th>
-                    <td>Total Recovered</td>
-                    <td>Active</td>
-                    <td>Critical</td>
-                    <td>Cases Per One Million</td>
-                    <td>Deaths Per One Million</td>
-                    <td>Total Tests</td>
-                    <td>Tests Per One Million</td>
-                </tr>
-            </thead>
-
-            <tbody>
-                {% for countries_info in countries_info %}
-                <tr>
-                    <td>{{countries_info["country"]}}</td>
-                    <td>{{countries_info["cases"]}}</td>
-                    <td>{{countries_info["todayCases"]}}</td>
-                    <td>{{countries_info["deaths"]}}</td>
-                    <td>{{countries_info["todayDeaths"]}}</td>
-                    <td>{{countries_info["recovered"]}}</td>
-                    <td>{{countries_info["active"]}}</td>
-                    <td>{{countries_info["critical"]}}</td>
-                    <td>{{countries_info["casesPerOneMillion"]}}</td>
-                    <td>{{countries_info["deathsPerOneMillion"]}}</td>
-                    <td>{{countries_info["totalTests"]}}</td>
-                    <td>{{countries_info["testsPerOneMillion"]}}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-
-
-        </table>
+        <input type="text" id="myInput" onkeyup="function()" placeholder="Search for Country">
     </div>
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Total Cases</th>
+                <th>Today Cases</th>
+                <th>Total Deaths</td>
+                <th>Today Deaths</th>
+                <td>Total Recovered</td>
+                <td>Active</td>
+                <td>Critical</td>
+                <td>Cases Per One Million</td>
+                <td>Deaths Per One Million</td>
+                <td>Total Tests</td>
+                <td>Tests Per One Million</td>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for countries_info in countries_info %}
+            <tr>
+                <td>{{countries_info["country"]}}</td>
+                <td>{{countries_info["cases"]}}</td>
+                <td>{{countries_info["todayCases"]}}</td>
+                <td>{{countries_info["deaths"]}}</td>
+                <td>{{countries_info["todayDeaths"]}}</td>
+                <td>{{countries_info["recovered"]}}</td>
+                <td>{{countries_info["active"]}}</td>
+                <td>{{countries_info["critical"]}}</td>
+                <td>{{countries_info["casesPerOneMillion"]}}</td>
+                <td>{{countries_info["deathsPerOneMillion"]}}</td>
+                <td>{{countries_info["totalTests"]}}</td>
+                <td>{{countries_info["testsPerOneMillion"]}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
 {% endblock %}
