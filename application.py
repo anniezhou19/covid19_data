@@ -1,23 +1,64 @@
 #imports    
 
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template,session
+from flask import request as http_request
+from flask.helpers import flash
+from flask_session import Session
+from tempfile import mkdtemp
 import json
 from requests import request
 import os
 import datetime
+from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
+from werkzeug.security import check_password_hash, generate_password_hash
+import operator
+
+from cs50 import SQL
+
 
 #parameters realted to apis
 API_KEY=os.getenv("API_KEY")
 base_url="https://newsapi.org/v2/everything"
 
+#for fedding date_time in sql db
+date_time_now=datetime.datetime.now().replace(microsecond=0)
 #calculating todays date and day before yesterday
 end_day=datetime.date.today()
-two_day=datetime.timedelta(days=5)
-start_day= end_day - two_day
+day_gap=datetime.timedelta(days=5)
+start_day= end_day - day_gap
+print(end_day)
+print(start_day)
+print(date_time_now)
+
 
 # configuring flask app
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+
+
+# Ensure responses aren't cached
+@app.after_request
+def after_request(response):
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Expires"] = 0
+    response.headers["Pragma"] = "no-cache"
+    return response
+
+# Configure session to use filesystem (instead of signed cookies)
+app.config["SESSION_FILE_DIR"] = mkdtemp()
+app.config["SESSION_PERMANENT"] = False
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
+
+#configuring sql db through cs50
+db=SQL("sqlite:///details.db")
+
+#configuring api_key
+if not os.environ.get("API_KEY"):
+    raise RuntimeError("API_KEY not set")
+
 
 #setting up routes
 @app.route("/")
@@ -67,8 +108,125 @@ def news():
 
    # f"{base_url}?qInTitle=+vaccination%20AND%20+coronavirus&from=2021-05-15&to=2021-05-17&sortBy=popularity,relevancy&apiKey={API_KEY}&language=en&pageSize=12"
 
+@app.route("/login",methods=["POST","GET"])
+def login():
+
+    #forget any user id 
+    session.clear()
+    #if users visit through form
+    if http_request.method=="POST":
+
+        #taking email and password from users 
+        email=http_request.form.get("email")
+        password=http_request.form.get("password")
+        print(email)
+        print(password)
+
+        #checking if they have entered usrename or password or not.,
+        if not email:
+            return
+        elif not password:
+            return
+
+        #searching database for user email
+        row=db.execute("SELECT * FROM users WHERE email=?",email)
+        print(row)
+        #checking if user entered right password or username exists or not
+        if len(row)!=1 or not check_password_hash(row[0]["hash"],password):
+            return render_template("news.html")
+        #remebering the logged in user
+        session["user_id"]=row[0]["user_id"]
+        flash("sucessfully logged in!!")
+        return redirect("/feedback")
+    # if user visits through link or redirect
+    return render_template("login.html")
+
+#logging out route 
+@app.route("/logout")
+def logout():
+    #clearing any session data
+    session.clear()
+    flash("logged out")
+    return redirect("/")
+
+# route for register
+@app.route("/register",methods=["GET", "POST"])
+def register():
+    #if user visits through submitting form
+    if http_request.method=="POST":
+
+        #taking all users input 
+        email=http_request.form.get("username")
+        password=http_request.form.get("password")
+        confirm_pass=http_request.form.get("confirmation")
+
+        #checking if users have provided input or not
+        if not email:
+            return
+        elif not password:
+            return
+        
+        #chceking if users have entered same password or not
+        elif password!=confirm_pass:
+            return
+        
+        #checking if username is availiabe or not 
+        rows=db.execute("SELECT * FROM users WHERE email =?",email)
+        if len(rows)==1:
+            return 
+        
+        #adding users into database and storing passwords as hash not actual password
+        db.execute("INSERT INTO users(email,hash) VALUES(?,?)",email,generate_password_hash(password))
+        
+        #redirecting users to login page
+        flash("registered sucessful")
+        return redirect("/feedback")
+    return render_template("register.html")
 
 #route for feedback form
-@app.route("/feedback")
+@app.route("/feedback", methods=["GET", "POST"])
 def feedback():
-    return render_template("feedback.html")
+
+    #queying db for all prevoius feedbacks
+    feedback_all=db.execute("SELECT feedback,username,date_time FROM Feedback ")
+    feedback_all.sort(key=operator.itemgetter("date_time"))
+
+    #if users posts feedback 
+    if http_request.method=="POST":
+        
+        #checking if user_id is in session or not i.e he is logged in or not
+        if session.get("user_id") is None:
+            return redirect("/login")
+        
+        #getting user email and username
+        email=http_request.form.get("email")
+        username=http_request.form.get("username")
+
+        #checking wehther the username is availiable or not
+        row=db.execute("SELECT * FROM feedback WHERE username=?",username)
+        if len(row)==1:
+            return
+        
+        #checking wether user provided username,email or not
+        if not username:
+            return
+        if not email:
+            return
+        
+        # getting feedback from users
+        feedback=http_request.form.get("feedback")
+
+        #checking whether users provide feedback or not
+        if not feedback:
+            return
+
+        #for fedding date_time in sql db
+        date_time_now=datetime.datetime.now().replace(microsecond=0)
+        flash("Posted feedback")
+        db.execute("INSERT INTO feedback (email,username,feedback,date_time) VALUES(?,?,?,?)",email,username,feedback,date_time_now)
+        return redirect("/feedback")
+
+    return render_template("feedback.html",feedback_all=feedback_all)
+
+if __name__ == '__main__':
+    app.run(debug=True)
