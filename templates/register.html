@@ -1,9 +1,19 @@
-{% extends "layout.html" %} {% block title %} Register {% endblock %} {% block main %}
+{% extends "layout.html" %}
+
+{% block title %}
+    Register
+{% endblock %}
+
+{% block main %}
 <h3>REGISTER YOURSELF</h3>
 <form action="/register" method="post">
 
     <div class="form-group">
         <input class="form-control" type="text" name="username" autocomplete="off" autofocus placeholder="Username">
+    </div>
+
+    <div class="form-group">
+        <input class="form-control" type="text" name="email" autocomplete="off" autofocus placeholder="Email">
     </div>
 
     <div class="form-group">
