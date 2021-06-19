@@ -12,12 +12,12 @@ import datetime
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 import operator
-
+from helper import apology, login_required
 from cs50 import SQL
 
 
 #parameters realted to apis
-API_KEY=os.getenv("API_KEY")
+API_KEY="b6f642c5ac2a40a5b3483ab45738aeaf"
 base_url="https://newsapi.org/v2/everything"
 
 #for fedding date_time in sql db
@@ -26,9 +26,6 @@ date_time_now=datetime.datetime.now().replace(microsecond=0)
 end_day=datetime.date.today()
 day_gap=datetime.timedelta(days=5)
 start_day= end_day - day_gap
-print(end_day)
-print(start_day)
-print(date_time_now)
 
 
 # configuring flask app
@@ -56,8 +53,7 @@ Session(app)
 db=SQL("sqlite:///details.db")
 
 #configuring api_key
-if not os.environ.get("API_KEY"):
-    raise RuntimeError("API_KEY not set")
+
 
 
 #setting up routes
@@ -111,35 +107,33 @@ def news():
 @app.route("/login",methods=["POST","GET"])
 def login():
 
-    #forget any user id 
     session.clear()
     #if users visit through form
     if http_request.method=="POST":
 
-        #taking email and password from users 
-        email=http_request.form.get("email")
+        #taking email and password from users
+        username=http_request.form.get("username")
         password=http_request.form.get("password")
-        print(email)
-        print(password)
 
         #checking if they have entered usrename or password or not.,
-        if not email:
-            return
+        if not username:
+            return apology("must provide username", 403)
         elif not password:
-            return
+            return apology("must provide password", 403)
 
         #searching database for user email
-        row=db.execute("SELECT * FROM users WHERE email=?",email)
+        row=db.execute("SELECT * FROM users WHERE username = ?", username)
         print(row)
         #checking if user entered right password or username exists or not
-        if len(row)!=1 or not check_password_hash(row[0]["hash"],password):
-            return render_template("news.html")
+        if len(row) != 1 or not check_password_hash(row[0]["hash"],password):
+            return apology("invalid username or password")
         #remebering the logged in user
-        session["user_id"]=row[0]["user_id"]
+        session["user_id"]=row[0]["id"]
         flash("sucessfully logged in!!")
         return redirect("/feedback")
     # if user visits through link or redirect
     return render_template("login.html")
+
 
 #logging out route 
 @app.route("/logout")
@@ -152,36 +146,41 @@ def logout():
 # route for register
 @app.route("/register",methods=["GET", "POST"])
 def register():
-    #if user visits through submitting form
+    
+#if user visits through submitting form
     if http_request.method=="POST":
 
-        #taking all users input 
-        email=http_request.form.get("username")
-        password=http_request.form.get("password")
-        confirm_pass=http_request.form.get("confirmation")
+        #taking all users input
+        username = http_request.form.get("username")
+        email = http_request.form.get("email")
+        password = http_request.form.get("password")
+        confirm_pass = http_request.form.get("confirmation")
 
         #checking if users have provided input or not
-        if not email:
-            return
+        if not username:
+            return apology("must provide username", 403)
+        elif not email:
+            return apology("must provide email", 403)
         elif not password:
-            return
-        
+            return apology("must provide password", 403)
+
         #chceking if users have entered same password or not
         elif password!=confirm_pass:
-            return
-        
-        #checking if username is availiabe or not 
-        rows=db.execute("SELECT * FROM users WHERE email =?",email)
-        if len(rows)==1:
-            return 
-        
+            return apology("password and confirmation must be the same", 403)
+
+        #checking if username is availiabe or not
+        rows=db.execute("SELECT * FROM users WHERE username = ?", username)
+        if len(rows) != 0:
+            return apology("username already exists")
+
         #adding users into database and storing passwords as hash not actual password
-        db.execute("INSERT INTO users(email,hash) VALUES(?,?)",email,generate_password_hash(password))
-        
+        db.execute("INSERT INTO users(username,hash, email) VALUES(?,?,?)", username, generate_password_hash(password), email)
+
         #redirecting users to login page
         flash("registered sucessful")
         return redirect("/feedback")
     return render_template("register.html")
+
 
 #route for feedback form
 @app.route("/feedback", methods=["GET", "POST"])
@@ -207,12 +206,7 @@ def feedback():
         if len(row)==1:
             return
         
-        #checking wether user provided username,email or not
-        if not username:
-            return
-        if not email:
-            return
-        
+               
         # getting feedback from users
         feedback=http_request.form.get("feedback")
 

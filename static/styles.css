@@ -112,3 +112,23 @@ p {
     color: #a7a8a9;
     text-align: left;
 }
+
+/* ------------------------------------FEEDBACL CSS--------------------------------*/
+
+.radio.inline{
+    margin: 0px 40px 20px 0px;
+    cursor: pointer;
+}
+
+#message{
+    outline: none;
+    border: none;
+    padding: 10px 0px 0px 15px;
+    font-size: 18px;
+    color: #000;
+    border-radius: 5px;
+}
+
+.radio-inline {
+    margin-left: 20px;
+}
