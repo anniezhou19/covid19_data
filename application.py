@@ -102,7 +102,7 @@ def news():
     news_data_covid=data["articles"]
     return render_template("news.html",news_data_covid=news_data_covid)
 
-   # f"{base_url}?qInTitle=+vaccination%20AND%20+coronavirus&from=2021-05-15&to=2021-05-17&sortBy=popularity,relevancy&apiKey={API_KEY}&language=en&pageSize=12"
+  
 
 @app.route("/login",methods=["POST","GET"])
 def login():
@@ -112,23 +112,26 @@ def login():
     if http_request.method=="POST":
 
         #taking email and password from users
-        username=http_request.form.get("username")
+        email=http_request.form.get("email")
         password=http_request.form.get("password")
 
         #checking if they have entered usrename or password or not.,
-        if not username:
-            return apology("must provide username", 403)
+        if not email:
+            return apology("must provide email", 403)
         elif not password:
             return apology("must provide password", 403)
 
         #searching database for user email
-        row=db.execute("SELECT * FROM users WHERE username = ?", username)
+        row=db.execute("SELECT * FROM users WHERE email = ?", email)
         print(row)
         #checking if user entered right password or username exists or not
         if len(row) != 1 or not check_password_hash(row[0]["hash"],password):
             return apology("invalid username or password")
-        #remebering the logged in user
-        session["user_id"]=row[0]["id"]
+
+        #remebering the logged in user_id and username
+        session["user_id"]=row[0]["user_id"]
+        session["username"]=row[0]["username"]
+
         flash("sucessfully logged in!!")
         return redirect("/feedback")
     # if user visits through link or redirect
@@ -169,12 +172,18 @@ def register():
             return apology("password and confirmation must be the same", 403)
 
         #checking if username is availiabe or not
-        rows=db.execute("SELECT * FROM users WHERE username = ?", username)
+        rows=db.execute("SELECT * FROM users WHERE email = ?",email)
         if len(rows) != 0:
-            return apology("username already exists")
+            return apology("Email already exists")
 
         #adding users into database and storing passwords as hash not actual password
         db.execute("INSERT INTO users(username,hash, email) VALUES(?,?,?)", username, generate_password_hash(password), email)
+        # making users login just by registring 
+        row=db.execute("SELECT * FROM users WHERE email=?",email)
+
+       # storinf user user_id and username in feedback
+        session["user_id"]=row[0]["user_id"]
+        session["username"]=row[0]["username"]
 
         #redirecting users to login page
         flash("registered sucessful")
@@ -187,7 +196,9 @@ def register():
 def feedback():
 
     #queying db for all prevoius feedbacks
-    feedback_all=db.execute("SELECT feedback,username,date_time FROM Feedback ")
+    feedback_all=db.execute("SELECT feedback,date_time,username,rating FROM feedback ")
+    print(feedback_all)
+    #sorting them on the basis of date and time
     feedback_all.sort(key=operator.itemgetter("date_time"))
 
     #if users posts feedback 
@@ -197,27 +208,26 @@ def feedback():
         if session.get("user_id") is None:
             return redirect("/login")
         
-        #getting user email and username
-        email=http_request.form.get("email")
-        username=http_request.form.get("username")
-
-        #checking wehther the username is availiable or not
-        row=db.execute("SELECT * FROM feedback WHERE username=?",username)
-        if len(row)==1:
-            return
+        #getting user rating
+        rating=http_request.form["option"]
         
-               
+            
         # getting feedback from users
-        feedback=http_request.form.get("feedback")
+        feedback=http_request.form["feedback"]
+        
 
-        #checking whether users provide feedback or not
+        #checking whether users provide feedback and rating or not
         if not feedback:
-            return
+            return apology("provide feedbck",403)
+        if not rating:
+            return apology("provide rating",403)
 
         #for fedding date_time in sql db
         date_time_now=datetime.datetime.now().replace(microsecond=0)
+        
+        # also taking user_id and username ffrom session for
+        db.execute("INSERT INTO feedback (feedback,rating,date_time,username,id) VALUES(?,?,?,?,?)",feedback,rating,date_time_now,session.get("username"),session.get("user_id"))
         flash("Posted feedback")
-        db.execute("INSERT INTO feedback (email,username,feedback,date_time) VALUES(?,?,?,?)",email,username,feedback,date_time_now)
         return redirect("/feedback")
 
     return render_template("feedback.html",feedback_all=feedback_all)

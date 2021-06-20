@@ -1,6 +1,6 @@
 body {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 .center {
@@ -113,14 +113,15 @@ p {
     text-align: left;
 }
 
+
 /* ------------------------------------FEEDBACL CSS--------------------------------*/
 
-.radio.inline{
+.radio.inline {
     margin: 0px 40px 20px 0px;
     cursor: pointer;
 }
 
-#message{
+#message {
     outline: none;
     border: none;
     padding: 10px 0px 0px 15px;
