@@ -1,17 +1,13 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block title %} Index {% endblock %} {% block main %}
+<div>
+    <h2>Coronavirus (COVID-19) Dashboard</h1>
+        <br>
+        <h4>Global Statistics</h4>
+        <br>
 
-{% block title %}
-    Index
-{% endblock %}
 
-{% block main %}
-    <div>
-        <h2>Coronavirus (COVID-19) Dashboard</h1>
-        <p></p>
         <table class="center">
-            <tr>
-                <th>Global Statistics</th>
-            </tr>
+
             <tr>
                 <th>Global coronavirus Cases</th>
             </tr>
@@ -31,9 +27,10 @@
                 <td>{{global_info["recovered"]}}</td>
             </tr>
         </table>
-    </div>
+</div>
 
-    <div>
-        <iframe src="https://ourworldindata.org/explorers/coronavirus-data-explorer?zoomToSelection=true&time=2020-03-01..latest&pickerSort=desc&pickerMetric=new_cases_per_million&Metric=Confirmed+cases&Interval=7-day+rolling+average&Relative+to+Population=true&Align+outbreaks=false&country=IND~USA~GBR~CAN~DEU~JPN&hideControls=true" loading="lazy" style="width: 100%; height: 600px; border: 0px none;"></iframe>
-    </div>
+<div>
+    <iframe src="https://ourworldindata.org/explorers/coronavirus-data-explorer?zoomToSelection=true&time=2020-03-01..latest&pickerSort=desc&pickerMetric=new_cases_per_million&Metric=Confirmed+cases&Interval=7-day+rolling+average&Relative+to+Population=true&Align+outbreaks=false&country=IND~USA~GBR~CAN~DEU~JPN&hideControls=true"
+        loading="lazy" style="width: 100%; height: 600px; border: 0px none;"></iframe>
+</div>
 {% endblock %}
