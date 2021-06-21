@@ -12,12 +12,13 @@ import datetime
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 import operator
-from helper import apology, login_required
+from helper import apology
 from cs50 import SQL
+import config
 
 
 #parameters realted to apis
-API_KEY="b6f642c5ac2a40a5b3483ab45738aeaf"
+
 base_url="https://newsapi.org/v2/everything"
 
 #for fedding date_time in sql db
@@ -93,7 +94,7 @@ def news():
     
     #APi for covid  and vaccination news
    
-    url_news= f"{base_url}?qInTitle=+vaccination%20AND%20+coronavirus&from={end_day}&to={start_day}&sortBy=popularity,relevancy&apiKey={API_KEY}&language=en&pageSize=12"
+    url_news= f"{base_url}?qInTitle=+vaccination%20AND%20+coronavirus&from={end_day}&to={start_day}&sortBy=popularity,relevancy&apiKey={config.api_key}&language=en&pageSize=12"
     #calling api to get response and converting into json format
     response_news_covid=request("GET",url_news)
     data=response_news_covid.json()
@@ -197,9 +198,8 @@ def feedback():
 
     #queying db for all prevoius feedbacks
     feedback_all=db.execute("SELECT feedback,date_time,username,rating FROM feedback ")
-    print(feedback_all)
     #sorting them on the basis of date and time
-    feedback_all.sort(key=operator.itemgetter("date_time"))
+    feedback_all.sort(key=operator.itemgetter("date_time"), reverse = True)
 
     #if users posts feedback 
     if http_request.method=="POST":

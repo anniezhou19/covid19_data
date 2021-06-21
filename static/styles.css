@@ -60,6 +60,7 @@ main img {
     /* Position the search icon */
     background-repeat: no-repeat;
     /* Do not repeat the icon image */
+    border: 2px, solid;
     width: 30%;
     /* Full-width */
     font-size: 20px;
@@ -75,61 +76,31 @@ p {
 #myTable {
     border-collapse: collapse;
     /* Collapse borders */
-    border: 1px solid #ddd;
-    /* Add a grey border */
     font-size: 18px;
     /* Increase font-size */
 }
 
 #myTable th,
 #myTable td {
-    text-align: left;
+    text-align: center;
     /* Left-align text */
-    padding: 10px;
-    /* Add padding */
-    border: 1px solid #ddd;
-}
-
-
-/* --------------------------------------------NEWS PAGE CSS_--------------------------------*/
-
-.news {
-    font-family: "Poppins" sans-serif;
-    border: 0px;
-    padding: 0px;
-    box-sizing: border-box;
-}
-
-.news_header {
-    color: #b7b8b9;
-}
-
-.news_title {
-    font-size: medium;
-}
-
-.news_description {
-    color: #a7a8a9;
-    text-align: left;
+    border: 1px sold;
 }
 
 
 /* ------------------------------------FEEDBACL CSS--------------------------------*/
 
-.radio.inline {
-    margin: 0px 40px 20px 0px;
+.radio-inline {
+    margin-left: 20px;
     cursor: pointer;
+    margin-left: 20px;
 }
 
 #message {
     outline: none;
-    border: none;
+    border: 1px solid;
     padding: 10px 0px 0px 15px;
     font-size: 18px;
     color: #000;
     border-radius: 5px;
-}
-
-.radio-inline {
-    margin-left: 20px;
 }
