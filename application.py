@@ -12,7 +12,7 @@ import datetime
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 import operator
-from helper import apology, login_required
+from helper import apology
 from cs50 import SQL
 
 
@@ -85,6 +85,7 @@ def vaccination():
     url_vaccination = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.json"
     response3 = request("GET", url_vaccination)
     vaccin_info = json.loads(response3.text)
+    
     return render_template("vaccination.html", vaccin_info=vaccin_info)
 
 # route for news 

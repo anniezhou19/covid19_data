@@ -121,15 +121,20 @@ p {
     cursor: pointer;
 }
 
+.radio-inline {
+    margin-left: 20px;
+}
+
 #message {
-    outline: none;
-    border: none;
+    border: 0px .5px solid black;
     padding: 10px 0px 0px 15px;
     font-size: 18px;
     color: #000;
-    border-radius: 5px;
+    border-radius: 7px;
 }
 
-.radio-inline {
-    margin-left: 20px;
+.button button {
+    margin: 1rem 0;
+    padding: .5rem;
+    border-radius: 7px;
 }
