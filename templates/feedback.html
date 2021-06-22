@@ -1,47 +1,57 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block title %} Feedback {% endblock %} {% block main %}
+<div>
+    <form action="/feedback" method="post">
+        <div>
+            <h2>Feedback</h2>
+            <br>
 
-{% block title %}
-    Feedback
-{% endblock %}
-
-{% block main %}
-    <div>
-        <form action="/feedback" method="post">
             <div>
-                <h1>Feedback</h1>
-                <hr>
-                <hr>
-                <div>
-                    <h3>How do you rate our website</h3>
-                    <hr>
+                <h3>How do you rate our website</h3>
+                <br>
+                <label class="radio-inline"><input type="radio" name="option" value="excellent">Excellent</label>
+                <label class="radio-inline"><input type="radio" name="option" value="verygood">Very good</label>
+                <label class="radio-inline"><input type="radio" name="option" value="good">Good</label>
+                <label class="radio-inline"><input type="radio" name="option" value="fair">Fair</label>
+                <label class="radio-inline"><input type="radio" name="option" value="poor">Poor</label>
 
-                    <label class="radio-inline"><input type="radio" name="level">Excellent</label>
-                    <label class="radio-inline"><input type="radio" name="level">Very good</label>
-                    <label class="radio-inline"><input type="radio" name="level">Good</label>
-                    <label class="radio-inline"><input type="radio" name="level">Fair</label>
-                    <label class="radio-inline"><input type="radio" name="level">Poor</label>
-                </div>
-                <hr>
-
-                <form>
-                    <div>
-                        <h3>Your Message*</h3>
-                            <textarea id="message" required="" placeholder="Write your message here" rows="10" cols="50"></textarea></label>
-                    </div>
-                    <div>
-                        <button class="btn btn-primary" style="width: 20%; position: center;" type="submit">Post</button>
-                    </div>
-                </form>
-
-
-
-        <div class="feedback_total">
-            {% for feedback in feedback_all %}
-            <span>{{feedback.username}} at {{feedback.date_time}}</span>
-            <hr>
-            <h2>{{feedback.feedback}}</h2>
-            {% endfor %}
+            </div>
         </div>
+
+        <br>
+
+        <form>
+            <div>
+                <h3>Your Message*</h3>
+                <textarea id="message" required="" placeholder="Write your message here" rows="2" cols="50" name="feedback"></textarea>
+            </div>
+            <div class="button">
+                <button class="btn btn-primary" style="width: 20%; position: center;" type="submit" {% if session.user_id %} "" {% else %} disabled {% endif %}>Post</button>
+            </div>
+        </form>
+    </form>
+    <br>
+    <div class="message">
+        {% if session.user_id %}
+        <p></p>
+        {% else %}
+        <p class="message">Please login before submitting feedback<b><a class="message" href="/login">Log in</a></b></p>
+        {% endif %}
+
     </div>
+
+    <div class="feedback_total">
+        {% for feedback in feedback_all %}
+        <div>
+            <p>
+                <span>{{feedback.username}} rated {{feedback.rating}} </span><br>
+                <span>{{feedback.date_time}}</span>
+            </p>
+            <h2>{{feedback.feedback}}</h2>
+            <br>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
 
 {% endblock %}

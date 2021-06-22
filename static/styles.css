@@ -1,6 +1,6 @@
 body {
-    background-color: black;
-    color: white;
+    background-color: white;
+    color: black;
 }
 
 .center {
@@ -113,22 +113,28 @@ p {
     text-align: left;
 }
 
+
 /* ------------------------------------FEEDBACL CSS--------------------------------*/
 
-.radio.inline{
+.radio.inline {
     margin: 0px 40px 20px 0px;
     cursor: pointer;
 }
 
-#message{
-    outline: none;
-    border: none;
+.radio-inline {
+    margin-left: 20px;
+}
+
+#message {
+    border: 0px .5px solid black;
     padding: 10px 0px 0px 15px;
     font-size: 18px;
     color: #000;
-    border-radius: 5px;
+    border-radius: 7px;
 }
 
-.radio-inline {
-    margin-left: 20px;
+.button button {
+    margin: 1rem 0;
+    padding: .5rem;
+    border-radius: 7px;
 }
