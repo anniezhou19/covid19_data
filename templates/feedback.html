@@ -24,7 +24,7 @@
                 <h3>Your Message*</h3>
                 <textarea id="message" required="" placeholder="Write your message here" rows="5" cols="50" name="feedback"></textarea>
             </div>
-            <div>
+            <div class="button">
                 <button class="btn btn-primary" style="width: 20%; position: center;" type="submit" {% if session.user_id %} "" {% else %} disabled {% endif %}>Post</button>
             </div>
         </form>
@@ -42,12 +42,12 @@
     <div class="feedback_total">
         <table id="InfoTable" class="center">
             {% for feedback in feedback_all %}
-                <tr>
-                    <th>{{feedback.username}}</th>
-                    <td>rated {{feedback.rating}}</td>
-                    <td>{{feedback.feedback}}</td>
-                    <td>{{feedback.date_time}}</td>
-                </tr>
+            <tr>
+                <th>{{feedback.username}}</th>
+                <td>rated {{feedback.rating}}</td>
+                <td>{{feedback.feedback}}</td>
+                <td>{{feedback.date_time}}</td>
+            </tr>
             {% endfor %}
         </table>
     </div>
