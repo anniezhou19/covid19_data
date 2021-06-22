@@ -86,6 +86,7 @@ def vaccination():
     url_vaccination = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.json"
     response3 = request("GET", url_vaccination)
     vaccin_info = json.loads(response3.text)
+    
     return render_template("vaccination.html", vaccin_info=vaccin_info)
 
 # route for news 
