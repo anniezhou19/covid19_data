@@ -1,5 +1,5 @@
 body {
-    background-color: white;
+    background-color: white: ;
     color: black;
 }
 
@@ -8,9 +8,13 @@ body {
     margin-right: auto;
 }
 
-td {
-    height: 70px
+#InfoTable th,
+#InfoTable td{
+    font-size: 18px;
+    text-align: left;
+    padding: 30px;
 }
+
 
 nav .navbar-brand {
     /* size for brand */
@@ -60,7 +64,7 @@ main img {
     /* Position the search icon */
     background-repeat: no-repeat;
     /* Do not repeat the icon image */
-    border: 2px, solid;
+    border: 2px solid;
     width: 30%;
     /* Full-width */
     font-size: 20px;
@@ -70,7 +74,7 @@ main img {
 }
 
 p {
-    height: 80px;
+    height: 30px;
 }
 
 #myTable {
@@ -84,23 +88,25 @@ p {
 #myTable td {
     text-align: center;
     /* Left-align text */
-    border: 1px sold;
+    border: 1px solid;
+    height: 80px;
 }
 
 
 /* ------------------------------------FEEDBACL CSS--------------------------------*/
 
-.radio-inline {
-    margin-left: 20px;
-    cursor: pointer;
-    margin-left: 20px;
-}
 
-#message {
+#message{
     outline: none;
     border: 1px solid;
     padding: 10px 0px 0px 15px;
     font-size: 18px;
     color: #000;
     border-radius: 5px;
+}
+
+.radio-inline {
+    margin-left: 20px;
+    cursor: pointer;
+    margin-left: 20px;
 }

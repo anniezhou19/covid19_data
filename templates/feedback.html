@@ -8,11 +8,11 @@
             <div>
                 <h3>How do you rate our website</h3>
                 <br>
-                <label class="radio-inline"><input type="radio" name="option" value="excellent">Excellent</label>
-                <label class="radio-inline"><input type="radio" name="option" value="verygood">Very good</label>
-                <label class="radio-inline"><input type="radio" name="option" value="good">Good</label>
-                <label class="radio-inline"><input type="radio" name="option" value="fair">Fair</label>
-                <label class="radio-inline"><input type="radio" name="option" value="poor">Poor</label>
+                <label class="radio-inline"><input type="radio" name="option" value="Excellent">Excellent</label>
+                <label class="radio-inline"><input type="radio" name="option" value="Very Good">Very good</label>
+                <label class="radio-inline"><input type="radio" name="option" value="Good">Good</label>
+                <label class="radio-inline"><input type="radio" name="option" value="Fair">Fair</label>
+                <label class="radio-inline"><input type="radio" name="option" value="Poor">Poor</label>
 
             </div>
         </div>
@@ -40,17 +40,16 @@
     </div>
 
     <div class="feedback_total">
-        {% for feedback in feedback_all %}
-        <div>
-            <p>
-                <span>{{feedback.username}} rated {{feedback.rating}} </span><br>
-                <span>{{feedback.date_time}}</span>
-            </p>
-            <h2>{{feedback.feedback}}</h2>
-            <br>
-        </div>
-        {% endfor %}
-
+        <table id="InfoTable" class="center">
+            {% for feedback in feedback_all %}
+                <tr>
+                    <th>{{feedback.username}}</th>
+                    <td>rated {{feedback.rating}}</td>
+                    <td>{{feedback.feedback}}</td>
+                    <td>{{feedback.date_time}}</td>
+                </tr>
+            {% endfor %}
+        </table>
     </div>
 </div>
 
