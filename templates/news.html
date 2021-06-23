@@ -1,29 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "layout.html" %} {% block title %} NEWS {% endblock %} {% block main %}
+<div class="news">
+    <h1 class="news_header">Covid And Vaccination News</h1>
+    {% for covid_news in news_data_covid %}
+    <div class="news_data bd-grid">
 
-<head>
-    <meta name="viewport" content="initial-scale=1 , width= device-width">
-    <link href="/static/news_style.css" rel="stylesheet">
-    <title>news</title>
-</head>
-
-<body>
-    <div class="news">
-        <h1 class="news_header">Covid And Vaccination News</h1>
-        {% for covid_news in news_data_covid %}
-        <div class="news_data bd-grid">
-
-            <img src="{{covid_news.urlToImage}}" alt="covid image" class="img-news">
-            <div class="news_content">
-                <h3 class="news_title">{{covid_news.title}}</h3>
-                <p class="news_description">{{covid_news.description}}</p>
-                <a class="news_link" href={{covid_news.url}}>know more:</a> {% endfor %}
-            </div>
-
-
+        <img src="{{covid_news.urlToImage}}" alt="covid image" class="img-news">
+        <div class="news_content">
+            <h3 class="news_title">{{covid_news.title}}</h3>
+            <p class="news_description">{{covid_news.description}}
+                <a class="news_link" href={{covid_news.url}}>know more:</a>
+            </p>
         </div>
 
     </div>
-</body>
+    {% endfor %}
 
-</html>
+</div>
+
+{% endblock %}
