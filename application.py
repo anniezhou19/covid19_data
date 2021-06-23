@@ -1,4 +1,4 @@
-#imports    
+#imports
 
 from flask import Flask, redirect, render_template,session
 from flask import request as http_request
@@ -86,15 +86,14 @@ def vaccination():
     url_vaccination = "https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/vaccinations.json"
     response3 = request("GET", url_vaccination)
     vaccin_info = json.loads(response3.text)
-    
     return render_template("vaccination.html", vaccin_info=vaccin_info)
 
-# route for news 
+# route for news
 @app.route("/news")
 def news():
-    
+
     #APi for covid  and vaccination news
-   
+
     url_news= f"{base_url}?qInTitle=+vaccination%20AND%20+coronavirus&from={end_day}&to={start_day}&sortBy=popularity,relevancy&apiKey={config.api_key}&language=en&pageSize=12"
     #calling api to get response and converting into json format
     response_news_covid=request("GET",url_news)
@@ -104,7 +103,7 @@ def news():
     news_data_covid=data["articles"]
     return render_template("news.html",news_data_covid=news_data_covid)
 
-  
+
 
 @app.route("/login",methods=["POST","GET"])
 def login():
@@ -140,7 +139,7 @@ def login():
     return render_template("login.html")
 
 
-#logging out route 
+#logging out route
 @app.route("/logout")
 def logout():
     #clearing any session data
@@ -151,7 +150,7 @@ def logout():
 # route for register
 @app.route("/register",methods=["GET", "POST"])
 def register():
-    
+
 #if user visits through submitting form
     if http_request.method=="POST":
 
@@ -180,7 +179,7 @@ def register():
 
         #adding users into database and storing passwords as hash not actual password
         db.execute("INSERT INTO users(username,hash, email) VALUES(?,?,?)", username, generate_password_hash(password), email)
-        # making users login just by registring 
+        # making users login just by registring
         row=db.execute("SELECT * FROM users WHERE email=?",email)
 
        # storinf user user_id and username in feedback
@@ -198,24 +197,24 @@ def register():
 def feedback():
 
     #queying db for all prevoius feedbacks
-    feedback_all=db.execute("SELECT feedback,date_time,username,rating FROM feedback ")
+    feedback_all=db.execute("SELECT feedback,date_time,username,rating FROM feedback")
     #sorting them on the basis of date and time
     feedback_all.sort(key=operator.itemgetter("date_time"), reverse = True)
 
-    #if users posts feedback 
+    #if users posts feedback
     if http_request.method=="POST":
-        
+
         #checking if user_id is in session or not i.e he is logged in or not
         if session.get("user_id") is None:
             return redirect("/login")
-        
+
         #getting user rating
         rating=http_request.form["option"]
-        
-            
+
+
         # getting feedback from users
         feedback=http_request.form["feedback"]
-        
+
 
         #checking whether users provide feedback and rating or not
         if not feedback:
@@ -225,7 +224,7 @@ def feedback():
 
         #for fedding date_time in sql db
         date_time_now=datetime.datetime.now().replace(microsecond=0)
-        
+
         # also taking user_id and username ffrom session for
         db.execute("INSERT INTO feedback (feedback,rating,date_time,username,id) VALUES(?,?,?,?,?)",feedback,rating,date_time_now,session.get("username"),session.get("user_id"))
         flash("Posted feedback")

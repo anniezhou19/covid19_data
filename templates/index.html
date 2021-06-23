@@ -1,32 +1,26 @@
 {% extends "layout.html" %} {% block title %} Index {% endblock %} {% block main %}
 <div>
-    <h2>Coronavirus (COVID-19) Dashboard</h1>
-        <br>
-        <h4>Global Statistics</h4>
-        <br>
+    <h1 class="header">Coronavirus (COVID-19) Dashboard</h1>
+    <br>
+    <h2>Global Statistics</h2>
+    <p></p>
+    <table id="InfoTable" class="center">
+        <tr>
+            <th>Global Coronavirus Cases</th>
+            <td>{{global_info["cases"]}}</td>
+        </tr>
 
+        <tr>
+            <th>Global Death</th>
+            <td>{{global_info["deaths"]}}</td>
+        </tr>
 
-        <table class="center">
+        <tr>
+            <th>Global Recovered</th>
+            <td>{{global_info["recovered"]}}</td>
+        </tr>
 
-            <tr>
-                <th>Global coronavirus Cases</th>
-            </tr>
-            <tr>
-                <td>{{global_info["cases"]}}</td>
-            </tr>
-            <tr>
-                <th>Global Death</th>
-            </tr>
-            <tr>
-                <td>{{global_info["deaths"]}}</td>
-            </tr>
-            <tr>
-                <th>Global Recovered</th>
-            </tr>
-            <tr>
-                <td>{{global_info["recovered"]}}</td>
-            </tr>
-        </table>
+    </table>
 </div>
 
 <div>

@@ -1,7 +1,7 @@
 {% extends "layout.html" %} {% block title %} Data Table {% endblock %} {% block main %}
-<h1>Coronavirus (COVID-19) Dashboard</h1>
+<h1 class="header">Coronavirus (COVID-19) Dashboard</h1>
 <h2>Situation by Country</h2>
-<br>
+<p></p>
 <div>
     <input type="text" id="myInput" onkeyup="function()" placeholder="Search for Country">
 </div>
@@ -19,7 +19,7 @@
             <th>Cases Per One Million</th>
             <th>Deaths Per One Million</th>
             <th>Total Tests</th>
-            <!---  <th>Tests Per One Million</th> --->
+            <th>Tests Per One Million</th>
         </tr>
     </thead>
 
@@ -37,7 +37,7 @@
             <td>{{countries_info["casesPerOneMillion"]}}</td>
             <td>{{countries_info["deathsPerOneMillion"]}}</td>
             <td>{{countries_info["totalTests"]}}</td>
-            <!---  <td>{{countries_info["testsPerOneMillion"]}}</td> ---->
+            <td>{{countries_info["testsPerOneMillion"]}}</td>
         </tr>
         {% endfor %}
     </tbody>
