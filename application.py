@@ -12,7 +12,7 @@ import datetime
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 import operator
-from helper import apology
+from helper import apology , number_format
 from cs50 import SQL
 import config
 
@@ -33,7 +33,8 @@ start_day= end_day - day_gap
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
-
+#custom filter
+app.jinja_env.filters["format"] = number_format
 
 # Ensure responses aren't cached
 @app.after_request
@@ -64,13 +65,13 @@ def index():
     url_global = "https://coronavirus-19-api.herokuapp.com/all"
     response1 = request("GET", url_global)
     global_info = json.loads(response1.text)
-
+    
     # data table
     url_countries = "https://coronavirus-19-api.herokuapp.com/countries"
     response2 = request("GET", url_countries)
     countries_info = json.loads(response2.text)
-
-    return render_template("index.html", global_info=global_info)
+    #cases=cases,deaths=deaths,recovers=recovers
+    return render_template("index.html",global_info=global_info )
 
 @app.route("/data_table")
 def data_table():

@@ -7,17 +7,17 @@
     <table id="InfoTable" class="center">
         <tr>
             <th>Global Coronavirus Cases</th>
-            <td>{{global_info["cases"]}}</td>
+            <td class="cases">{{global_info["cases"]|format}}</td>
         </tr>
 
         <tr>
             <th>Global Death</th>
-            <td>{{global_info["deaths"]}}</td>
+            <td class="deaths">{{global_info["deaths"]|format}}</td>
         </tr>
 
         <tr>
             <th>Global Recovered</th>
-            <td>{{global_info["recovered"]}}</td>
+            <td class="recovered">{{global_info["recovered"]|format}}</td>
         </tr>
 
     </table>

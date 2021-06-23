@@ -133,6 +133,32 @@ tbody tr:nth-of-type(2n+1) {
     border-radius: 7px;
 }
 
+.feedback_button {
+    margin-top: .5rem;
+}
+
+h4.feedback {
+    margin: 2rem 0;
+    font-size: 2.25rem;
+    font-weight: bold;
+}
+
+.rating_good {
+    color: green;
+}
+
+.rating_bad {
+    color: red;
+}
+
+.feedback_text {
+    font-style: bold;
+}
+
+.radio-inline {
+    font-weight: bold;
+}
+
 
 /* --------------------------------------------NEWS PAGE CSS_--------------------------------*/
 
@@ -207,30 +233,16 @@ img {
 }
 
 
-/* ------------------------------------log in CSS--------------------------------*/
+/* ------------------------------------index page CSS--------------------------------*/
 
-.feedback_button {
-    margin-top: .5rem;
-}
-
-h4.feedback {
-    margin: 2rem 0;
-    font-size: 2.25rem;
-    font-weight: bold;
-}
-
-span.rating_good {
-    color: green;
-}
-
-span.rating_bad {
+.deaths {
     color: red;
 }
 
-.feedback_text {
-    font-style: bold;
+.recovered {
+    color: green;
 }
 
-.radio-inline {
-    font-weight: bold;
+.cases {
+    color: gray;
 }
