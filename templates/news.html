@@ -1,7 +1,7 @@
-{% extends "layout.html" %} {% block title %} news {% endblock %} {% block main %}
+{% extends "layout.html" %} {% block title %} NEWS {% endblock %} {% block main %}
 <div class="news">
     <h1 class="news_header">Covid And Vaccination News</h1>
-    <hr> {% for covid_news in news_data_covid %}
+    {% for covid_news in news_data_covid %}
     <div class="news_data bd-grid">
 
         <img src="{{covid_news.urlToImage}}" alt="covid image" class="img-news">

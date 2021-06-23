@@ -1,13 +1,14 @@
 * {
-    border: 0px;
-    padding: 0px;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
 }
 
 body {
     background-color: white;
     color: black;
-    font-family: "Poppins" sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .center {
@@ -15,8 +16,11 @@ body {
     margin-right: auto;
 }
 
-td {
-    height: 70px
+#InfoTable th,
+#InfoTable td {
+    font-size: 18px;
+    text-align: left;
+    padding: 30px;
 }
 
 nav .navbar-brand {
@@ -67,6 +71,7 @@ main img {
     /* Position the search icon */
     background-repeat: no-repeat;
     /* Do not repeat the icon image */
+    border: 1px solid gray;
     width: 30%;
     /* Full-width */
     font-size: 20px;
@@ -76,25 +81,56 @@ main img {
 }
 
 p {
-    height: 80px;
+    height: 30px;
 }
 
 #myTable {
     border-collapse: collapse;
     /* Collapse borders */
-    border: 1px solid #ddd;
-    /* Add a grey border */
     font-size: 18px;
     /* Increase font-size */
 }
 
 #myTable th,
 #myTable td {
-    text-align: left;
+    text-align: center;
     /* Left-align text */
-    padding: 10px;
-    /* Add padding */
     border: 1px solid #ddd;
+    height: 80px;
+}
+
+#myTable tr:nth-child(0) {
+    background: #ddd;
+}
+
+tbody tr:nth-of-type(2n+1) {
+    background-color: #f2f2f2;
+}
+
+.header {
+    font-weight: 600;
+}
+
+
+/* ------------------------------------FEEDBACL CSS--------------------------------*/
+
+#message {
+    outline: none;
+    border: 1px solid;
+    padding: 10px 0px 0px 15px;
+    font-size: 18px;
+    color: #000;
+    border-radius: 7px;
+}
+
+.radio-inline {
+    margin-left: 20px;
+}
+
+.button button {
+    margin: 1rem 0;
+    padding: .5rem;
+    border-radius: 7px;
 }
 
 
@@ -106,7 +142,7 @@ p {
 
 .news_header {
     margin-bottom: 2em;
-    color: #ddd;
+    color: black;
     font-size: 3rem;
     font-weight: 600;
     text-align: center;
@@ -144,12 +180,12 @@ img {
     width: 100%;
     height: 100%;
     justify-self: start;
-    transition: all 0.25s ease-out;
+    transition: all 0.5s ease;
 }
 
 .news_data .img-news:hover {
     transform: scale(1.1);
-    transition: all 0.25s ease-in;
+    transition: all 0.5s ease;
 }
 
 .news_content p {
@@ -171,27 +207,30 @@ img {
 }
 
 
-/* ------------------------------------FEEDBACL CSS--------------------------------*/
+/* ------------------------------------log in CSS--------------------------------*/
 
-.radio.inline {
-    margin: 0px 40px 20px 0px;
-    cursor: pointer;
+.feedback_button {
+    margin-top: .5rem;
+}
+
+h4.feedback {
+    margin: 2rem 0;
+    font-size: 2.25rem;
+    font-weight: bold;
+}
+
+span.rating_good {
+    color: green;
+}
+
+span.rating_bad {
+    color: red;
+}
+
+.feedback_text {
+    font-style: bold;
 }
 
 .radio-inline {
-    margin-left: 20px;
-}
-
-#message {
-    border: 0px .5px solid black;
-    padding: 10px 0px 0px 15px;
-    font-size: 18px;
-    color: #000;
-    border-radius: 7px;
-}
-
-.button button {
-    margin: 1rem 0;
-    padding: .5rem;
-    border-radius: 7px;
+    font-weight: bold;
 }
