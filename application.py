@@ -12,7 +12,7 @@ import datetime
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 import operator
-from helper import apology , number_format
+from helper import apology 
 from cs50 import SQL
 import config
 
@@ -33,8 +33,7 @@ start_day= end_day - day_gap
 app = Flask(__name__)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 
-#custom filter
-app.jinja_env.filters["format"] = number_format
+
 
 # Ensure responses aren't cached
 @app.after_request
