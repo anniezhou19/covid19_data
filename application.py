@@ -94,13 +94,16 @@ def news():
 
     #APi for covid  and vaccination news
 
-    url_news= f"{base_url}?qInTitle=+vaccination%20AND%20+coronavirus&from={end_day}&to={start_day}&sortBy=popularity,relevancy&apiKey={config.api_key}&language=en&pageSize=12"
+    url_news= f"{base_url}?qInTitle=+vaccination%20AND%20+coronavirus&from={end_day}&to={start_day}&sortBy=popularity,relevancy&apiKey={config.api_key}&language=en&pageSize=20"
     #calling api to get response and converting into json format
     response_news_covid=request("GET",url_news)
     data=response_news_covid.json()
 
     #sending the data to fronttend
     news_data_covid=data["articles"]
+    #print(news_data_covid)
+    news_data_covid.sort(key=operator.itemgetter("publishedAt"),reverse=True)
+    
     return render_template("news.html",news_data_covid=news_data_covid)
 
 
