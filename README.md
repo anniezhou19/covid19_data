@@ -9,8 +9,8 @@
 #### This project is completed by both me and my project partner Anurag Choudhary from CS50 facebook community. I have done for the homepage, datatable and vaccination pages, and Anurag  has finished for the news, feedback and register pages.
 
 ### Usage:
+- export "FLASK_APP"="application.py"
 - Type in command line: flask run
-- If you want to give us your feedback and leave a message, then you need to register and login
 
 #### We use config.py and .gitignore to hide our api key in our github public repository
 
