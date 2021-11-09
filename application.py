@@ -1,6 +1,6 @@
 #imports
 
-from flask import Flask, redirect, render_template,session
+from flask import Flask, redirect, render_template, session
 from flask import request as http_request
 from flask.helpers import flash
 from flask_session import Session
@@ -12,7 +12,7 @@ import datetime
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 import operator
-from helper import apology 
+from helper import apology
 from cs50 import SQL
 import config
 
@@ -64,13 +64,13 @@ def index():
     url_global = "https://coronavirus-19-api.herokuapp.com/all"
     response1 = request("GET", url_global)
     global_info = json.loads(response1.text)
-    
+
     # data table
     url_countries = "https://coronavirus-19-api.herokuapp.com/countries"
     response2 = request("GET", url_countries)
     countries_info = json.loads(response2.text)
-    #cases=cases,deaths=deaths,recovers=recovers
-    return render_template("index.html",global_info=global_info )
+
+    return render_template("index.html", global_info=global_info)
 
 @app.route("/data_table")
 def data_table():
@@ -103,7 +103,7 @@ def news():
     news_data_covid=data["articles"]
     #print(news_data_covid)
     news_data_covid.sort(key=operator.itemgetter("publishedAt"),reverse=True)
-    
+
     return render_template("news.html",news_data_covid=news_data_covid)
 
 
@@ -236,4 +236,4 @@ def feedback():
     return render_template("feedback.html",feedback_all=feedback_all)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
